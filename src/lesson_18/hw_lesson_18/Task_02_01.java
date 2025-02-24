@@ -19,10 +19,9 @@ public class Task_02_01 {
         String longest = null;
         String shortest = null;
 
-        // Используем обычный for
         for (int i = 0; i < strArray.length; i++) {
             if (strArray[i] == null) {
-                continue; // Пропускаем null элементы
+                continue;
             }
                 System.out.println("strArray[i]" + strArray[i]);
 
@@ -35,7 +34,6 @@ public class Task_02_01 {
             }
         }
 
-        // Обрабатываем случай, если все элементы были null
         if (shortest == null) shortest = "";
         if (longest == null) longest = "";
 
