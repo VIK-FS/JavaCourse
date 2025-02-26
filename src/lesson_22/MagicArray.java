@@ -12,10 +12,13 @@ public class MagicArray {
         this.array = new int[10]; // [0,0...0]
     }
 
-    public MagicArray(int[] array){
+    public MagicArray(int[] array) {
         // Todo Homework
-    }
+//        this.array = Arrays.copyOf(array, array.length);
+        this.array = array;
+        this.cursor = array.length;
 
+    }
 
     // Добавление в массив одного элемента
 
@@ -144,29 +147,80 @@ public class MagicArray {
                 return i;
             }
         }
-
         // Сюда мы попадем, если ни одно значение в массиве не совпало
         return -1;
     }
 
     // Индекс последнего вхождения
     // {1,100,5,100,24,0,100} -> lastIndexOf(100) -> 6
-    int lastIndexOf(int value){
+    int lastIndexOf(int value) {
         // Todo Homework
-        return  -1;
+        for (int i = cursor - 1; i >= 0; i--) {
+            if (array[i] == value) {
+                // Значения совпали. Возвращаю индекс
+                return i;
+            }
+        }
+        return -1;
     }
-
-    // Удаление элемента по значению
-    boolean removeByValue(int value){
-        // Todo Homework
-        return false;
-    }
-
-    //  // {1, 100, 5, 100, 24, 0, 100}
-//    int[] findAllValues(int value) {
-//       // {1, 3, 6}
-//        return null;
+//    // удаления всех элементов по значению
+//    boolean removeByValue(int value) {
+//        boolean found = false;
+//
+//        for (int i = 0; i < cursor; i++) {
+//            if (array[i] == value) {
+//
+//                for (int j = i; j < cursor - 1; j++) {
+//                    array[j] = array[j + 1];
+//                }
+//                cursor--;
+//                i--; // Корректировка индекса, чтобы не пропустить следующий элемент
+//                found = true;
+//            }
+//        }
+//
+//        return found;
 //    }
+    // Удаление элемента по значению
+    boolean removeByValue(int value) {
+        // Todo Homework
+
+        int index = lastIndexOf(value);
+        if (index == -1) return false;
+
+        for (int i = index; i < cursor - 1; i++) {
+            array[i] = array[i + 1];
+        }
+        cursor--;
+        return true;
+    }
+
+      // {1, 100, 5, 100, 24, 0, 100}
+      int[] findAllValues(int value) {
+
+          int count = 0;
+          for (int i = 0; i < cursor; i++) {
+              if (array[i] == value) {
+                  count++;
+              }
+          }
+
+          if (count == 0) {
+              return new int[0];
+          }
+
+          int[] indexes = new int[count];
+          int indexCounter = 0;
+          for (int i = 0; i < cursor; i++) {
+              if (array[i] == value) {
+                  indexes[indexCounter++] = i;
+//                  indexCounter++;
+              }
+          }
+
+          return indexes;
+      }
+
 
 
     void test() {

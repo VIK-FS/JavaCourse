@@ -1,8 +1,13 @@
 package lesson_22;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class Less22Main {
     public static void main(String[] args) {
-        int[] numbers = new int[5];
+//        int[] numbers = new int[5];
+//        int[] numbers = new int[0];
+        int[] array = new int[]{1, 100, 5, 100, 24, 0, 100};
 
 //        numbers[0] = 100;
 //        System.out.println(numbers[0]);
@@ -11,6 +16,23 @@ public class Less22Main {
         // [1,3,66,5,4]
         // add(100), remove(5)
         MagicArray magic = new MagicArray();
+        MagicArray magicInt = new MagicArray(array);
+//        System.out.println("magicInt.toString(): " + magicInt.toString());
+
+        System.out.println("Текущий массив2: " + magicInt.toString());
+        System.out.println("cursor = " + magicInt.cursor);
+
+        System.out.println("В массиве2 сейчас элементов: " + magicInt.size());
+
+        int lastIndex = magicInt.lastIndexOf(100);
+        System.out.println("magicInt.lastIndexOf(100): " + lastIndex);
+
+        boolean isDellValue = magicInt.removeByValue(100);
+        System.out.println("magicInt.removeByValue(100): " + isDellValue);
+
+        int[] indexes = magicInt.findAllValues(100);
+        System.out.println("magicInt.findAllValues(100): " + Arrays.toString(indexes) );
+
 
         System.out.println(magic.toString());
         magic.add(5);
@@ -51,9 +73,9 @@ public class Less22Main {
         int index = magic.indexOf(500);
         System.out.println("magic.indexOf(500): " + index);
 
-        if (index >=0){
+        if (index >= 0) {
             System.out.println("Значение было найдено");
-        }else {
+        } else {
             System.out.println("Вернулся отрицательный индекс. Такого значения не существует");
         }
 
