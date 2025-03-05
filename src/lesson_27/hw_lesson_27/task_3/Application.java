@@ -40,8 +40,5 @@ public class Application {
         System.out.println("Количество: "+ bus.getCountPassengers());
 
         bus.showListPassengers();
-
-
-
     }
 }

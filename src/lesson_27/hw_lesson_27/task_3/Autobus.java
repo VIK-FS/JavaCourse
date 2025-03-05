@@ -199,5 +199,4 @@ public class Autobus {
         return countPassengers;
     }
 
-
 }
