@@ -5,9 +5,9 @@ public class Computer {
     private final Memory memory;
     private Storage storage;
 
-    public Computer(Processor processor, Memory memory, Storage storage) {
-        this.processor = processor;
-        this.memory = memory;
+    public Computer(Storage storage) {
+        this.processor = new Processor("Atom", "A1250", 4.5);
+        this.memory = new Memory("Hynix", "HNX",8);
         this.storage = storage;
     }
 

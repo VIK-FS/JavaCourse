@@ -1,4 +1,6 @@
-package lesson_27.hw_lesson_27.task_3;
+package lesson_27;
+
+import java.util.Arrays;
 
 /*
 Ассоциация - это связь, при которой один объект связан с другим объектом
@@ -56,7 +58,7 @@ public class Autobus {
         this.passengers = new Passenger[capacity];
     }
 
-    // TODO Переписываем метод toString() с помощью StringBuilder
+    // Переписываем метод toString() с помощью StringBuilder
     //Применив StringBuilder мы экономим память и время
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -95,71 +97,6 @@ public class Autobus {
         System.out.println(sb.toString());
     }
 
-    /*
-        TODO Реализация метода dropPassenger
-    1. Проверяем на корректность объект Passenger.
-    2. Находим пассажира в массиве.
-    3. Если пассажир найден, сдвигаем оставшиеся элементы массива влево.
-    4. Обнуляем последний элемент массива (чтобы избежать дубликатов).
-    5. Уменьшаем счетчик countPassengers.
-    6. Выводим сообщение об успешной высадке.
-    7. Если пассажир не найден, выводим сообщение и возвращаем false.
-     */
-
-    public boolean dropPassenger(Passenger passenger) {
-        if (passenger == null || countPassengers == 0 || !isPassengerInBus(passenger)) {
-            System.out.printf("Пассажир с id %d не найден в автобусе с id %d\n",
-                    (passenger != null ? passenger.getId() : -1), this.id);
-            return false;
-        }
-
-        // Проверяем, есть ли пассажир в автобусе
-        for (int i = 0; i < countPassengers; i++) {
-            if (passengers[i].getId() == passenger.getId()) {
-                // Смещаем всех пассажиров после удаляемого влево
-                for (int j = i; j < countPassengers - 1; j++) {
-                    passengers[j] = passengers[j + 1];
-                }
-
-                // Убираем последний элемент (избегаем дубликатов)
-                passengers[countPassengers - 1] = null;
-
-                // Уменьшаем счетчик пассажиров
-                countPassengers--;
-
-                System.out.printf("Пассажир с id %d вышел из автобуса с id %d\n",
-                        passenger.getId(), this.id);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-//    public boolean dropPassenger(Passenger passenger) {
-//        if (passenger == null || countPassengers == 0) return false;
-//
-//        for (int i = 0; i < countPassengers; i++) {
-//            if (passengers[i].getId() == passenger.getId()) {
-//                for (int j = i; j < countPassengers - 1; j++) {
-//                    passengers[j] = passengers[j + 1];
-//                }
-//                passengers[countPassengers - 1] = null;
-//
-//                countPassengers--;
-//
-//                System.out.printf("Пассажир с id %d вышел из автобуса с id %d\n"
-//                        , passenger.getId(), this.id);
-//                return true;
-//            }
-//        }
-//
-//        System.out.printf("Пассажир с id %d не найден в автобусе с id %d\n"
-//                , passenger.getId(), this.id);
-//        return false;
-//    }
-
-
     public boolean takePassenger(Passenger passenger) {
         if (passenger == null) return false;
         /*
@@ -188,6 +125,46 @@ public class Autobus {
                 , passenger.getId());
         return false;
     }
+
+    /*
+    Реализация метода dropPassenger
+    1. Проверяем на корректность объект Passenger.
+    2. Находим пассажира в массиве.
+    3. Если пассажир найден, сдвигаем оставшиеся элементы массива влево.
+    4. Обнуляем последний элемент массива (чтобы избежать дубликатов).
+    5. Уменьшаем счетчик countPassengers.
+    6. Выводим сообщение об успешной высадке.
+    7. Если пассажир не найден, выводим сообщение и возвращаем false.
+     */
+
+    public boolean dropPassenger(Passenger passenger) {
+        if (passenger == null) return false;
+
+        // Проверяем, есть ли пассажир в автобусе
+        for (int i = 0; i < countPassengers; i++) {
+            if (passengers[i].getId() == passenger.getId()) {
+                // Смещаем всех пассажиров после удаляемого влево
+                for (int j = i; j < countPassengers - 1; j++) {
+                    passengers[j] = passengers[j + 1];
+                }
+
+                // Убираем последний элемент (избегаем дубликатов)
+                passengers[countPassengers - 1] = null;
+
+                // Уменьшаем счетчик пассажиров
+                countPassengers--;
+
+                System.out.printf("Пассажир с id %d вышел из автобуса с id %d\n",
+                        passenger.getId(), this.id);
+                return true;
+            }
+        }
+
+        System.out.printf("Пассажир с id %d не найден в автобусе с id %d\n",
+                passenger.getId(), this.id);
+        return false;
+    }
+
 
     private boolean isPassengerInBus(Passenger passenger) {
         for (int i = 0; i < countPassengers; i++) {
@@ -228,5 +205,7 @@ public class Autobus {
     public int getCountPassengers() {
         return countPassengers;
     }
+
+
 
 }

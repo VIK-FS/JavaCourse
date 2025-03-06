@@ -4,7 +4,7 @@ public class DogApps {
     public static void main(String[] args) {
 
         Dog[] dogs = {
-                new Dog("Рекс", 10),
+                new Dog("Рекс", 22),
                 new Dog("Пират", 15),
                 new Dog("Оскар", 18),
                 new Dog("Ириска", 25),

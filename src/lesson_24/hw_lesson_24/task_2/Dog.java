@@ -45,6 +45,7 @@ public class Dog {
 
     public void jumpBarrier(int heightBarrier) {
         if (heightJump >= heightBarrier) {
+            jump();
             System.out.println(name + " легко перепрыгнул барьер " + heightBarrier + " см!");
             return;
         }

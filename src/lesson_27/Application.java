@@ -1,4 +1,4 @@
-package lesson_27.hw_lesson_27.task_3;
+package lesson_27;
 
 public class Application {
     public static void main(String[] args) {
@@ -25,20 +25,15 @@ public class Application {
 
         bus.takePassenger(john);
         bus.takePassenger(john);
-
 //
         bus.takePassenger(mario);
-        // TODO  вызываем метод dropPassenger
-        bus.dropPassenger(jane);
-
+//
         bus.takePassenger(jane);
         bus.takePassenger(jane);
 
-         // TODO  вызываем метод dropPassenger
+        // вызываем метод dropPassenger
         bus.dropPassenger(jane);
-        bus.dropPassenger(jane);
-        bus.dropPassenger(jane);
-
+//
         System.out.println("Количество: "+ bus.getCountPassengers());
 
         bus.showListPassengers();
