@@ -1,19 +1,24 @@
-package lesson_31.lists;
+package lesson_32.hw_lesson_32.task_2;
 
+//import lesson_32.lists.MyList;
+
+import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Objects;
 
-public class MagicArrayList<T> {
+public class MyArrayList<T> implements MyList<T> {
     private T[] array;
     private int cursor; // по умолчанию = 0
 
     // методы, расширяющие функционал массива
 
-    public MagicArrayList() {
+    public MyArrayList() {
+        // Стирание типов. невозможно создать объект типа T
         this.array = (T[]) new Object[10];
 //        this.array = new int[10]; // [0,0...0]
     }
 
-    public MagicArrayList(T[] array) {
+    public MyArrayList(T[] array) {
         // Todo Homework
 //        this.array = Arrays.copyOf(array, array.length);
         if (array == null || array.length == 0) {
@@ -21,7 +26,7 @@ public class MagicArrayList<T> {
         } else {
             this.array = (T[]) new Object[array.length * 2];
             // (int...numbers) может принятт ссылку на массив
-            add(array);
+            addAll(array);
         }
     }
 
@@ -43,9 +48,11 @@ public class MagicArrayList<T> {
 
     //метод динамического расширения массива
     private void expandArray() {
-//        System.out.println("Расширяем внутренний массив! Курсор = " + cursor);
+        System.out.println("Расширяем внутренний массив! Курсор = " + cursor);
+        /*
         System.out.println("Расширяем внутренний массив!" + (array.length * 2));
         array = Arrays.copyOf(array, array.length * 2);
+         */
         /*
         1. Создать новый массив бОльшего размера ( в 2 раза больше)
         2. Переписать в новый массив все значения из старого (до курсора)
@@ -55,18 +62,19 @@ public class MagicArrayList<T> {
 
         // 1
 
-//        int[] newArray = new int[array.length * 2];
-//
-//        // 2
-//        for (int i = 0; i < cursor; i++) {
-//            newArray[i] = array[i];
-//        }
-//        // 3. Перебрасываем ссылку. Переменная array хранит ссылку на "новый" массив
-//        array = newArray;
+        T[] newArray = (T[]) new Object[array.length * 2];
+
+        // 2
+        for (int i = 0; i < cursor; i++) {
+            newArray[i] = array[i];
+        }
+        // 3. Перебрасываем ссылку. Переменная array хранит ссылку на "новый" массив
+        array = newArray;
     }
 
+    @Override
     // Добавление в массив несколько элементов
-    public void add(T... values) {
+    public void addAll(T... numbers) {
         // c numbers я могу обращаться точно также как со ссылкой на массив int
 //        System.out.println("Принял несколько int: " +numbers.length);
 //        System.out.println(Arrays.toString(numbers));
@@ -74,11 +82,12 @@ public class MagicArrayList<T> {
 
         // перебираю все значение. Для каждого вызываю метод add()
 
-        for (int i = 0; i < values.length; i++) {
-            add(values[i]);
+        for (int i = 0; i < numbers.length; i++) {
+            add(numbers[i]);
         }
     }
 
+    @Override
     // Возвращает строковое представление массива
     // [5, 20, 45]
     public String toString() {
@@ -92,6 +101,7 @@ public class MagicArrayList<T> {
         return result;
     }
 
+    @Override
     // 5. Текущее кол-во элементов в массиве
     public int size() {
         return cursor;
@@ -110,6 +120,16 @@ public class MagicArrayList<T> {
 //        return -2_147_483_647;
         return null;
 //        Todo Поправить обработку некорректного индекса
+    }
+
+    // переписать значенин по указаному индексу
+    @Override
+    public void set(int index, T value) {
+        if (index >= 0 && index < cursor) {
+            // Если индекс корректный присваиваем новое значение
+            array[index] = value;
+        }
+        // Если нет - действий не требуется
     }
 
     //    7. Удалить элемент по индексу (есть индекс - удалить элемент из массива)
@@ -142,6 +162,16 @@ public class MagicArrayList<T> {
         }
     }
 
+    @Override
+    public boolean isEmpty() {
+        return cursor == 0;
+    }
+
+    @Override
+    public boolean contains(T value) {
+        return indexOf(value) >= 0;
+    }
+
     //9. Поиск по значению
     // {1, 100, 5, 24, 0, 5} -> indexOf(5) = 2; indexOf(50) = -1;
     public int indexOf(T value) {
@@ -150,10 +180,12 @@ public class MagicArrayList<T> {
         // Если перебрал все элементы =- не нашел совпадений - вернуть -1
 
         for (int i = 0; i < cursor; i++) {
-            if (array[i].equals(value)) {
-                // Значения совпали. Возвращаю индекс
-                return i;
-            }
+            if (Objects.equals(array[i], value)) return i;
+            // TODO null-безопасное сравнение
+//            if (array[i].equals(value)) {
+//                // Значения совпали. Возвращаю индекс
+//                return i;
+//            }
         }
         // Сюда мы попадем, если ни одно значение в массиве не совпало
         return -1;
@@ -164,10 +196,11 @@ public class MagicArrayList<T> {
     public int lastIndexOf(T value) {
         // Todo Homework
         for (int i = cursor - 1; i >= 0; i--) {
-            if (array[i].equals(value)) {
-                // Значения совпали. Возвращаю индекс
-                return i;
-            }
+            if (Objects.equals(array[i], value)) return i;
+//            if (array[i].equals(value)) {
+//                // Значения совпали. Возвращаю индекс
+//                return i;
+//            }
         }
         return -1;
     /*
@@ -214,8 +247,9 @@ public class MagicArrayList<T> {
 //        return true;
 //    }
 
+    @Override
     // Удаление элемента по значению
-    public boolean removeByValue(T value) {
+    public boolean remove(T value) {
         // Todo Homework
         /*
         1. Есть ли элемент с  таким значением - indexOf
@@ -257,16 +291,47 @@ public class MagicArrayList<T> {
         return indexes;
     }
 
-//    // Массив, состоящий из элементов магического массива
-public T[] toArray() {
-    T[] result = (T[]) new Object[cursor];
-    for (int i = 0; i < cursor; i++) {
-        result[i] = array[i];
-    }
-    return result;
+//    TODO Task 2. * Опционально. Обобщенный статический метод “Печать двух списков”
+//
+
+    public static <T, U> void printTwoLists(MyArrayList<T> list1, MyArrayList<U> list2) {
+        for (int i = 0; i < list1.size(); i++) {
+            System.out.println(list1.get(i));
+        }
+        for (int i = 0; i < list2.size(); i++) {
+            System.out.println(list2.get(i));
+        }
     }
 
+    //    // Массив, состоящий из элементов магического массива
+    public T[] toArray() {
+        /*
+        1. Создать массив cursor (количество значимых эл-в)
+        2. Пройтись по внутреннему массиву
+        3. Вернуть ссылку на новый массив
+         */
 
+        // TODO здесь будет ошибка
+//    T[] result = (T[]) new Object[cursor];
+//    T[] res = new T[11];
+//    T obj = new T();
+
+        // Взять какой-то объект из моего массива
+        // и узнать с помощью рефлексии тип этого объекта
+        // Потом я могу создать массив этого типа
+        if (cursor == 0) return null;
+
+        Class<T> clazz = (Class<T>) array[0].getClass();
+        System.out.println("clazz: " + clazz);
+
+        // Создаю массив того же типа, что и 0-й элемент.
+        T[] result = (T[]) Array.newInstance(clazz, cursor);
+
+        for (int i = 0; i < cursor; i++) {
+            result[i] = array[i];
+        }
+        return result;
+    }
 
 
 //    public int[] toArray() {
