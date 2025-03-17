@@ -1,4 +1,4 @@
-package lesson_34.hw_lesson_34.task_1;
+package lesson_34.hw_lesson_34.task_3;
 
 public class Person {
     private String email;
@@ -72,7 +72,7 @@ Task1
 
         if (email.contains("..") || email.contains(" ")) return false;
 
-        return true;  // если все условия выполнены -> return true
+        return true; // если все условия выполнены -> return true
     }
 
     /*
@@ -122,6 +122,7 @@ Task1
 //
 //        if (!Character.isLetter(email.charAt(0))) return false;
 //
+//
 //        // все проверки пройдены. Email подходит
 //        return true;
 //    }
@@ -162,7 +163,7 @@ Task1
             if (Character.isUpperCase(ch)) hasUpperCase = true;
             if (specialChars.indexOf(ch) != -1) hasSpecialChar = true;
         }
-//        System.out.printf("%s | %s | %s | %s\n", hasDigit, hasLowerCase, hasUpperCase, hasSpecialChar);
+        System.out.printf("%s | %s | %s | %s\n", hasDigit, hasLowerCase, hasUpperCase, hasSpecialChar);
 
         // если все условия выполнены -> return true
         return isLongEnought && hasDigit && hasLowerCase && hasUpperCase && hasSpecialChar;
