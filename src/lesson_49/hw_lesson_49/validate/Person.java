@@ -37,7 +37,7 @@ public class Person {
             this.email = email;
 
         } catch (EmailValidateException ex) {
-            System.out.println("Вы вели неверный email: " + ex.getMessage());
+            System.out.println("\nВы вели неверный email: " + ex.getMessage());
         }
     }
     /*
@@ -110,7 +110,7 @@ public class Person {
             this.password = password;
 
         } catch (PasswordValidateException ex) {
-            System.out.println("Вы вели неверный password: " + ex.getMessage());
+            System.out.println("\nВы вели неверный password: " + ex.getMessage());
         }
     }
 
